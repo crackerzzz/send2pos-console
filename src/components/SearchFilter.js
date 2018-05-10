@@ -24,7 +24,7 @@ class SearchFilter extends React.Component {
     handleAdd = (index, value) => {
         const newSearchItem = { index: value };
         this.setState({ searchFields: [...this.state.searchFields, newSearchItem] });
-        console.log('Refs is null' + newSearchItem);
+        console.log('Refs is null' + newSearchItemt);
     };
 
     render() {
