@@ -9,22 +9,36 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar';
 import { TextField } from 'material-ui';
 
+const searchFieldNames = [
+    { value: 'Order Number', id: 'OrderNumber' },
+    { value: 'Customer Name', id: 'CustomerName' },
+    { value: 'Client Id', id: 'ClientId' },
+];
+
 class SearchFilter extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchFieldIndex: 2,
-            searchValue: '',
+            selectedSearchField: 'OrderNumber',
+            selectedSearchValue: '',
             searchFields: [],
         };
     }
 
-    handleSelectionChange = (event, index, value) => this.setState({ searchFieldIndex: value });
-    handleSearchValueChange = (event, index, value) => this.setState({ searchValue: value });
-    handleAdd = (index, value) => {
-        const newSearchItem = { index: value };
+    handleSelectionChange = (event, index, value) => {
+        this.setState({ selectedSearchField: value });
+        console.log('selection changed to ' + value);
+    };
+
+    handleSearchValueChange = (event) => {
+        this.setState({ selectedSearchValue: event.target.value });
+        console.log('search value changed to ' + event.target.value);
+    };
+
+    handleSearchAdd = (index, value) => {
+        const newSearchItem = { [index]: value };
         this.setState({ searchFields: [...this.state.searchFields, newSearchItem] });
-        console.log('Refs is null' + newSearchItemt);
+        console.log('New Search Field: ' + JSON.stringify(newSearchItem));
     };
 
     render() {
@@ -32,22 +46,30 @@ class SearchFilter extends React.Component {
             <form>
                 <Toolbar>
                     <ToolbarGroup firstChild={true}>
-                        <DropDownMenu ref="searchField" value={this.state.searchFieldIndex} onChange={this.handleSelectionChange}>
-                            <MenuItem value={1} primaryText="Search By" />
-                            <MenuItem value={2} primaryText="Order Number" />
-                            <MenuItem value={3} primaryText="Customer Name" />
-                            <MenuItem value={4} primaryText="Client" />
+                        <DropDownMenu ref="searchField"
+                            value={this.state.selectedSearchField} onChange={this.handleSelectionChange}>
+                            {searchFieldNames.map(entry =>
+                                <MenuItem key={entry.id} value={entry.id} primaryText={entry.value} />
+                            )}
                         </DropDownMenu>
                         <ToolbarSeparator />
-                        <TextField ref="searchValue" hintText="Search value" floatingLabelFixed={true} floatingLabelText="Search Value" onChange={this.handleSearchValueChange} />
+                        <TextField ref="searchValue"
+                            hintText="Search value"
+                            floatingLabelFixed={true}
+                            floatingLabelText="Search Value"
+                            onChange={this.handleSearchValueChange} />
                         <ToolbarSeparator />
-                        <RaisedButton label="Add" primary={false} onClick={() => this.handleAdd(this.state.searchFieldIndex, this.state.searchValue)} />
+                        <RaisedButton label="Add" primary={false}
+                            onClick={() => this.handleSearchAdd(this.state.selectedSearchField, this.state.selectedSearchValue)}
+                        />
                     </ToolbarGroup>
                     <ToolbarGroup>
                         <ToolbarTitle text="Options" />
                         <FontIcon className="muidocs-icon-custom-sort" />
                         <ToolbarSeparator />
-                        <RaisedButton label="Search" primary={true} onClick={this.props.onSearch} />
+                        <RaisedButton label="Search" primary={true}
+                            onClick={() => this.props.onSearch(this.state.searchFields)}
+                        />
                         <IconMenu
                             iconButtonElement={
                                 <IconButton touch={true}>
