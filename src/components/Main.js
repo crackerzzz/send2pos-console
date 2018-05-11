@@ -13,7 +13,6 @@ class Main extends React.Component {
     }
 
     handleSearch = (searchParam) => {
-        console.log('Search : ' + searchParam);
         this.setState({ results: SearchService(searchParam) });
     }
 

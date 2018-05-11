@@ -7,7 +7,6 @@ import {
     TableRow,
     TableRowColumn,
 } from 'material-ui/Table';
-
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
@@ -22,10 +21,10 @@ class SearchResults extends React.Component {
     }
 
     handleRequestOpen = () => this.setState({ requestPayloadOpen: true })
-    handleRequestClose = () => this.setState({ requestPayloadOpen: false });
+    handleRequestClose = () => this.setState({ requestPayloadOpen: false })
 
     handleResponseOpen = () => this.setState({ responsePayloadOpen: true })
-    handleResponseClose = () => this.setState({ responsePayloadOpen: false });
+    handleResponseClose = () => this.setState({ responsePayloadOpen: false })
 
     render() {
         const requestActions = [

@@ -7,13 +7,36 @@ import MenuItem from 'material-ui/MenuItem';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar';
+import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import { TextField } from 'material-ui';
+import FlatButton from 'material-ui/FlatButton';
 
 const searchFieldNames = [
     { value: 'Order Number', id: 'OrderNumber' },
     { value: 'Customer Name', id: 'CustomerName' },
     { value: 'Client Id', id: 'ClientId' },
 ];
+
+const SearchCard = (searchField, searchText) => {
+    return (
+        <Card>
+            <CardHeader
+                title="Without Avatar"
+                subtitle="Subtitle"
+                actAsExpander={false}
+                showExpandableButton={false}
+            />
+            <CardText expandable={false}>
+                search for : {searchField}
+                search text: {searchText}
+            </CardText>
+            <CardActions>
+                <FlatButton label="Action1" />
+                <FlatButton label="Action2" />
+            </CardActions>
+        </Card>
+    );
+}
 
 class SearchFilter extends React.Component {
     constructor(props) {
@@ -36,7 +59,7 @@ class SearchFilter extends React.Component {
     };
 
     handleSearchAdd = (index, value) => {
-        const newSearchItem = { [index]: value };
+        const newSearchItem = { searchFor: index, searchBy: value };
         this.setState({ searchFields: [...this.state.searchFields, newSearchItem] });
         console.log('New Search Field: ' + JSON.stringify(newSearchItem));
     };
@@ -82,6 +105,19 @@ class SearchFilter extends React.Component {
                         </IconMenu>
                     </ToolbarGroup>
                 </Toolbar>
+                {this.state.searchFields.map((f) =>
+                    <Card>
+                        <CardHeader
+                            title="Without Avatar"
+                            subtitle="Subtitle"
+                            actAsExpander={false}
+                            showExpandableButton={false}                            
+                        />
+                        <CardText expandable={false}>
+                            {f.searchFor} : {f.searchBy}
+                        </CardText>                        
+                    </Card>
+                )}
             </form>
         );
     }
