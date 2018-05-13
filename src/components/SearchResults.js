@@ -10,6 +10,8 @@ import {
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
+import { TextField } from 'material-ui';
+import JSONPretty from 'react-json-pretty';
 
 class SearchResults extends React.Component {
     constructor(props) {
@@ -55,8 +57,8 @@ class SearchResults extends React.Component {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {this.props.results.map(result =>
-                        <TableRow>
+                    {this.props.results.map((result, index) =>
+                        <TableRow key={index}>
                             <TableRowColumn>{result.clientId}</TableRowColumn>
                             <TableRowColumn>{result.customerName}</TableRowColumn>
                             <TableRowColumn>{result.orderNumber}</TableRowColumn>
@@ -70,8 +72,9 @@ class SearchResults extends React.Component {
                                     modal={false}
                                     open={this.state.requestPayloadOpen}
                                     onRequestClose={this.handleRequestClose}
+                                    autoScrollBodyContent={true}
                                 >
-                                    {JSON.stringify(result.requestPayload, null, 2)}
+                                    <JSONPretty id="json-pretty" json={result.requestPayload}></JSONPretty>
                                 </Dialog>
                             </TableRowColumn>
                             <TableRowColumn>
@@ -83,7 +86,7 @@ class SearchResults extends React.Component {
                                     open={this.state.responsePayloadOpen}
                                     onRequestClose={this.handleResponseClose}
                                 >
-                                    {JSON.stringify(result.responsePayload, null, 2)}
+                                    <JSONPretty id="json-pretty" json={result.responsePayload}></JSONPretty>
                                 </Dialog>
                             </TableRowColumn>
                         </TableRow>
