@@ -1,5 +1,6 @@
 import React from 'react';
 import {GridList, GridTile} from 'material-ui/GridList';
+import PropTypes from 'prop-types';
 
 class TopBar extends React.Component {
     constructor(props) {
@@ -16,5 +17,9 @@ class TopBar extends React.Component {
         );
     }
 }
+
+TopBar.prototypes = {
+    welcomeMessage: PropTypes.string,
+};
 
 export default TopBar;

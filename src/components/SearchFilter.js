@@ -7,36 +7,19 @@ import MenuItem from 'material-ui/MenuItem';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar';
-import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import { TextField } from 'material-ui';
 import FlatButton from 'material-ui/FlatButton';
-
+import SearchCard from './SearchCard';
+import PropTypes from 'prop-types';
 const searchFieldNames = [
     { value: 'Order Number', id: 'OrderNumber' },
     { value: 'Customer Name', id: 'CustomerName' },
     { value: 'Client Id', id: 'ClientId' },
 ];
 
-const SearchCard = (searchField, searchText) => {
-    return (
-        <Card>
-            <CardHeader
-                title="Without Avatar"
-                subtitle="Subtitle"
-                actAsExpander={false}
-                showExpandableButton={false}
-            />
-            <CardText expandable={false}>
-                search for : {searchField}
-                search text: {searchText}
-            </CardText>
-            <CardActions>
-                <FlatButton label="Action1" />
-                <FlatButton label="Action2" />
-            </CardActions>
-        </Card>
-    );
-}
+const styles = {
+
+};
 
 class SearchFilter extends React.Component {
     constructor(props) {
@@ -59,30 +42,31 @@ class SearchFilter extends React.Component {
     };
 
     handleSearchAdd = (index, value) => {
-        const newSearchItem = { searchFor: index, searchBy: value };
+        const newSearchItem = { searchFor: index, searchText: value };
         this.setState({ searchFields: [...this.state.searchFields, newSearchItem] });
         console.log('New Search Field: ' + JSON.stringify(newSearchItem));
     };
+
 
     render() {
         return (
             <form>
                 <Toolbar>
                     <ToolbarGroup firstChild={true}>
-                        <DropDownMenu ref="searchField"
+                        <DropDownMenu
                             value={this.state.selectedSearchField} onChange={this.handleSelectionChange}>
                             {searchFieldNames.map(entry =>
                                 <MenuItem key={entry.id} value={entry.id} primaryText={entry.value} />
                             )}
                         </DropDownMenu>
                         <ToolbarSeparator />
-                        <TextField ref="searchValue"
+                        <TextField
                             hintText="Search value"
-                            floatingLabelFixed={true}
-                            floatingLabelText="Search Value"
-                            onChange={this.handleSearchValueChange} />
+                            onChange={this.handleSearchValueChange}
+                            autoFocus={true}
+                        />
                         <ToolbarSeparator />
-                        <RaisedButton label="Add" primary={false}
+                        <RaisedButton label="Add" secondary={true}
                             onClick={() => this.handleSearchAdd(this.state.selectedSearchField, this.state.selectedSearchValue)}
                         />
                     </ToolbarGroup>
@@ -106,20 +90,15 @@ class SearchFilter extends React.Component {
                     </ToolbarGroup>
                 </Toolbar>
                 {this.state.searchFields.map((f) =>
-                    <Card>
-                        <CardHeader
-                            title="Without Avatar"
-                            subtitle="Subtitle"
-                            actAsExpander={false}
-                            showExpandableButton={false}                            
-                        />
-                        <CardText expandable={false}>
-                            {f.searchFor} : {f.searchBy}
-                        </CardText>                        
-                    </Card>
+                    <SearchCard searchFor={f.searchFor} searchText={f.searchText} />
                 )}
             </form>
         );
     }
 }
+
+SearchCard.prototypes = {
+    onSearch: PropTypes.func.isRequired,
+};
+
 export default SearchFilter;

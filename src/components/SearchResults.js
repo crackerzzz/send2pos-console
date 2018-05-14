@@ -7,11 +7,26 @@ import {
     TableRow,
     TableRowColumn,
 } from 'material-ui/Table';
+import PropTypes from 'prop-types';
 import JsonViewer from './JsonViewer';
 
+
+const styles = theme => ({
+    root: {
+        width: '100%',
+        marginTop: theme.spacing.unit * 3,
+    },
+    table: {
+        minWidth: 500,
+    },
+    tableWrapper: {
+        overflowX: 'auto',
+    },
+});
+
 class SearchResults extends React.Component {
-    constructor(props) {
-        super(props);
+    constructor(props, context) {
+        super(props, context);
     }
 
     render() {
@@ -49,5 +64,9 @@ class SearchResults extends React.Component {
         );
     }
 }
+
+SearchResults.prototypes = {
+    results: PropTypes.arrayOf(PropTypes.object),
+};
 
 export default SearchResults;

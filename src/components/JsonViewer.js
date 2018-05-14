@@ -6,6 +6,7 @@ import Dialog from 'material-ui/Dialog';
 import { TextField } from 'material-ui';
 import JSONPretty from 'react-json-pretty';
 import CopyToClipboard from 'react-copy-to-clipboard';
+import PropTypes from 'prop-types';
 
 class JsonViewer extends React.Component {
     constructor(props) {
@@ -48,6 +49,7 @@ class JsonViewer extends React.Component {
                     open={this.state.open}
                     onRequestClose={this.handleClose}
                     autoScrollBodyContent={true}
+                    style={{ fontSize: '10px' }}
                 >
                     <JSONPretty json={this.props.json}></JSONPretty>
                 </Dialog>
@@ -55,5 +57,10 @@ class JsonViewer extends React.Component {
         );
     }
 }
+
+JsonViewer.prototypes = {
+    json: PropTypes.string,
+    title: PropTypes.string
+};
 
 export default JsonViewer;
