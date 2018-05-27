@@ -6,7 +6,7 @@ import {
     TableHeaderColumn,
     TableRow,
     TableRowColumn,
-} from 'material-ui/Table';
+} from '@material-ui/core';
 import PropTypes from 'prop-types';
 import JsonViewer from './JsonViewer';
 
