@@ -1,66 +1,34 @@
 import React from 'react';
-import {
-    Table,
-    TableBody,
-    TableHeader,
-    TableHeaderColumn,
-    TableRow,
-    TableRowColumn,
-} from 'material-ui/Table';
+import EnhancedTable from './EnhancedTable';
 import PropTypes from 'prop-types';
 import JsonViewer from './JsonViewer';
 
-
-const styles = theme => ({
-    root: {
-        width: '100%',
-        marginTop: theme.spacing.unit * 3,
-    },
-    table: {
-        minWidth: 500,
-    },
-    tableWrapper: {
-        overflowX: 'auto',
-    },
-});
+const columnData = [
+    { id: 'country', numeric: false, disablePadding: true, label: 'Country' },
+    { id: 'storeNo', numeric: false, disablePadding: false, label: 'Store Num' },
+    { id: 'brand', numeric: false, disablePadding: false, label: 'Brand' },
+    { id: 'franchiseCode', numeric: false, disablePadding: false, label: 'Franchise Code' },
+    { id: 'franchiseChannel', numeric: false, disablePadding: false, label: 'Franchise Channel' },
+    { id: 'clientId', numeric: false, disablePadding: true, label: 'Client ID' },
+    { id: 'customerName', numeric: false, disablePadding: false, label: 'Customer Name' },
+    { id: 'orderNumber', numeric: false, disablePadding: false, label: 'Order Number' },
+    { id: 'date', numeric: false, disablePadding: false, label: 'Date' },
+    { id: 'status', numeric: false, disablePadding: false, label: 'Status' },
+    { id: 'request', numeric: false, disablePadding: false, label: 'Request' },
+    { id: 'response', numeric: false, disablePadding: false, label: 'Response' },
+];
 
 class SearchResults extends React.Component {
     constructor(props, context) {
         super(props, context);
+        this.state = {
+            result: props.results
+        };
     }
 
     render() {
         return (
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        <TableHeaderColumn>Client ID</TableHeaderColumn>
-                        <TableHeaderColumn>Customer Name</TableHeaderColumn>
-                        <TableHeaderColumn>Order Number</TableHeaderColumn>
-                        <TableHeaderColumn>Date Received</TableHeaderColumn>
-                        <TableHeaderColumn>Status</TableHeaderColumn>
-                        <TableHeaderColumn>Request Payload</TableHeaderColumn>
-                        <TableHeaderColumn>Response Payload</TableHeaderColumn>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {this.props.results.map((result, index) =>
-                        <TableRow key={index}>
-                            <TableRowColumn>{result.clientId}</TableRowColumn>
-                            <TableRowColumn>{result.customerName}</TableRowColumn>
-                            <TableRowColumn>{result.orderNumber}</TableRowColumn>
-                            <TableRowColumn>{result.date}</TableRowColumn>
-                            <TableRowColumn>{result.status}</TableRowColumn>
-                            <TableRowColumn>
-                                <JsonViewer title="Request Payload" json={result.requestPayload} />
-                            </TableRowColumn>
-                            <TableRowColumn>
-                                <JsonViewer title="Response Payload" json={result.responsePayload} />
-                            </TableRowColumn>
-                        </TableRow>
-                    )}
-                </TableBody>
-            </Table>
+            <EnhancedTable columnData={columnData} rowData={this.props.results} />
         );
     }
 }

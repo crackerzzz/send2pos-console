@@ -89,8 +89,8 @@ class SearchFilter extends React.Component {
                         </IconMenu>
                     </ToolbarGroup>
                 </Toolbar>
-                {this.state.searchFields.map((f) =>
-                    <SearchCard searchFor={f.searchFor} searchText={f.searchText} />
+                {this.state.searchFields.map((f, index) =>
+                    <SearchCard key={index} searchFor={f.searchFor} searchText={f.searchText} />
                 )}
             </form>
         );
