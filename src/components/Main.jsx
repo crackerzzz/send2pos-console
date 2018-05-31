@@ -44,7 +44,8 @@ class Main extends React.Component {
         return (
             <div>
                 <TopBar
-                    welcomeMessage="Welcome Shreejwal" />
+                    welcomeMessage="Welcome Shreejwal"
+                />
                 <SearchFilter
                     onSearch={this.handleSearch}
                 />

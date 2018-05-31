@@ -160,7 +160,7 @@ class EnhancedTable extends React.Component {
             orderBy: 'date',
             selected: [],
             page: 0,
-            rowsPerPage: 5,
+            rowsPerPage: 10,
             searchParam: []
         };
     }
@@ -177,7 +177,7 @@ class EnhancedTable extends React.Component {
             order === 'desc'
                 ? this.props.rowData.sort((a, b) => (b[orderBy] < a[orderBy] ? -1 : 1))
                 : this.props.rowData.sort((a, b) => (a[orderBy] < b[orderBy] ? -1 : 1));
-                
+
         this.props.onSort(rowData);
         this.setState({ order, orderBy });
     };
@@ -240,7 +240,7 @@ class EnhancedTable extends React.Component {
                             onRequestSort={this.handleRequestSort}
                             rowCount={rowData.length}
                         />
-                        <TableBody>
+                        <TableBody stripedRows={true} >
                             {rowData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(n => {
                                 const isSelected = this.isSelected(n.id);
                                 return (

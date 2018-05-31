@@ -13,9 +13,8 @@ class Login extends React.Component {
         };
     }
 
-    handleClick(event) {
+    handleClick = (event) => {
         let apiBaseUrl = "http://localhost:4000/api/";
-        let self = this;
 
         let payload = {
             "email": this.state.username,
