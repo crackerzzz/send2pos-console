@@ -159,10 +159,9 @@ class EnhancedTable extends React.Component {
             order: 'desc',
             orderBy: 'date',
             selected: [],
-            columnData: this.props.columnData,
-            rowData: this.props.rowData,
             page: 0,
             rowsPerPage: 5,
+            searchParam: []
         };
     }
 
@@ -176,15 +175,16 @@ class EnhancedTable extends React.Component {
 
         const rowData =
             order === 'desc'
-                ? this.state.rowData.sort((a, b) => (b[orderBy] < a[orderBy] ? -1 : 1))
-                : this.state.rowData.sort((a, b) => (a[orderBy] < b[orderBy] ? -1 : 1));
-
-        this.setState({ rowData, order, orderBy });
+                ? this.props.rowData.sort((a, b) => (b[orderBy] < a[orderBy] ? -1 : 1))
+                : this.props.rowData.sort((a, b) => (a[orderBy] < b[orderBy] ? -1 : 1));
+                
+        this.props.onSort(rowData);
+        this.setState({ order, orderBy });
     };
 
     handleSelectAllClick = (event, checked) => {
         if (checked) {
-            this.setState({ selected: this.state.data.map(n => n.id) });
+            this.setState({ selected: this.props.data.map(n => n.id) });
             return;
         }
         this.setState({ selected: [] });
@@ -222,8 +222,8 @@ class EnhancedTable extends React.Component {
     isSelected = id => this.state.selected.indexOf(id) !== -1;
 
     render() {
-        const { classes, rowData } = this.props;
-        const { columnData, order, orderBy, selected, rowsPerPage, page } = this.state;
+        const { rowData, columnData, classes } = this.props;
+        const { order, orderBy, selected, rowsPerPage, page } = this.state;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, rowData.length - page * rowsPerPage);
 
         return (

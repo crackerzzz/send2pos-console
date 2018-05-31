@@ -2,6 +2,7 @@ import React from 'react';
 import EnhancedTable from './EnhancedTable';
 import PropTypes from 'prop-types';
 import JsonViewer from './JsonViewer';
+import SearchService from '../services/SearchService';
 
 const columnData = [
     { id: 'country', numeric: false, disablePadding: true, label: 'Country' },
@@ -19,16 +20,17 @@ const columnData = [
 ];
 
 class SearchResults extends React.Component {
-    constructor(props, context) {
-        super(props, context);
-        this.state = {
-            result: props.results
-        };
+    constructor(props) {
+        super(props);
     }
 
     render() {
+        console.log("Search result render: " + this.props.results)
         return (
-            <EnhancedTable columnData={columnData} rowData={this.props.results} />
+            <EnhancedTable
+                columnData={columnData}
+                rowData={this.props.results}
+                searchParams={this.props.searchParams} />
         );
     }
 }

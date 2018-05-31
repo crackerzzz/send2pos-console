@@ -15,9 +15,14 @@ const DummyData = (i) => {
         response: '{ "meta": { "timestamp": 1520472945327, "referenceId": "95a2f854-df92-432d-8974-5d92eb32ca14", "responder": { "techChannel": "12345678-106e-4368-bf74-8f87b875df84" } }, "response": { "respondingTo": "83093994-f43c-42b5-9218-6ab961720e9b", "statusCode": 400, "statusId": 1, "traits": [], "message": "Amount mismatch between APPROVAL_AMOUNT and order total + delivery fee - APPROVAL_AMOUNT: 600.00, order total + delivery fee: 400.00" } }',
     };
 }
+
+let getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
+
 const SearchService = (params) => {
+    const random = getRandomInt(5);
+    console.log("Random number: " + random);
     return (
-        [...Array(100000).keys()].map(i => DummyData(i))
+        [...Array(100).keys()].map(i => DummyData(i * random))
     );
 }
 
