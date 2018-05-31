@@ -240,7 +240,7 @@ class EnhancedTable extends React.Component {
                             onRequestSort={this.handleRequestSort}
                             rowCount={rowData.length}
                         />
-                        <TableBody stripedRows={true} >
+                        <TableBody >
                             {rowData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(n => {
                                 const isSelected = this.isSelected(n.id);
                                 return (
