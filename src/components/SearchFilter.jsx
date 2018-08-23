@@ -49,7 +49,10 @@ class SearchFilter extends React.Component {
     };
 
     handleSearchRemove = (index) => {
-       
+        const tSearchFields = this.state.searchFields;
+        this.setState({
+            searchFields: tSearchFields.slice(0, index - 1).concat(tSearchFields.slice(index + 1, tSearchFields.length))
+        });
     }
 
 
@@ -74,28 +77,14 @@ class SearchFilter extends React.Component {
                         <RaisedButton label="Add" secondary={true}
                             onClick={() => this.handleSearchAdd(this.state.selectedSearchField, this.state.selectedSearchValue)}
                         />
-                    </ToolbarGroup>
-                    <ToolbarGroup>
-                        <ToolbarTitle text="Options" />
-                        <FontIcon className="muidocs-icon-custom-sort" />
                         <ToolbarSeparator />
                         <RaisedButton label="Search" primary={true}
                             onClick={() => this.props.onSearch(this.state.searchFields)}
                         />
-                        <IconMenu
-                            iconButtonElement={
-                                <IconButton touch={true}>
-                                    <NavigationExpandMoreIcon />
-                                </IconButton>
-                            }
-                        >
-                            <MenuItem primaryText="Download" />
-                            <MenuItem primaryText="More Info" />
-                        </IconMenu>
                     </ToolbarGroup>
                 </Toolbar>
                 {this.state.searchFields.map((f, index) =>
-                    <SearchCard key={index} searchFor={f.searchFor} searchText={f.searchText} onRemove={this.handleSearchRemove(key)} />
+                    <SearchCard key={index} searchFor={f.searchFor} searchText={f.searchText} onRemove={() => this.handleSearchRemove(index)} />
                 )}
             </form>
         );

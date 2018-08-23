@@ -43,7 +43,7 @@ class SearchCard extends React.Component {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small">X</Button>
+                    <Button size="small" onClick={this.props.onRemove}>X</Button>
                 </CardActions>
             </Card>
         );
