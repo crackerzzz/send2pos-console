@@ -11,6 +11,7 @@ import { TextField } from 'material-ui';
 import FlatButton from 'material-ui/FlatButton';
 import SearchCard from './SearchCard';
 import PropTypes from 'prop-types';
+
 const searchFieldNames = [
     { value: 'Order Number', id: 'OrderNumber' },
     { value: 'Customer Name', id: 'CustomerName' },
@@ -46,6 +47,10 @@ class SearchFilter extends React.Component {
         this.setState({ searchFields: [...this.state.searchFields, newSearchItem] });
         console.log('New Search Field: ' + JSON.stringify(newSearchItem));
     };
+
+    handleSearchRemove = (index) => {
+       
+    }
 
 
     render() {
@@ -90,7 +95,7 @@ class SearchFilter extends React.Component {
                     </ToolbarGroup>
                 </Toolbar>
                 {this.state.searchFields.map((f, index) =>
-                    <SearchCard key={index} searchFor={f.searchFor} searchText={f.searchText} />
+                    <SearchCard key={index} searchFor={f.searchFor} searchText={f.searchText} onRemove={this.handleSearchRemove(key)} />
                 )}
             </form>
         );

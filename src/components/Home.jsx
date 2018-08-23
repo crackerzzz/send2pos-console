@@ -44,9 +44,6 @@ class Home extends React.Component {
     render() {
         return (
             <div>
-                <TopBar
-                    welcomeMessage="Welcome Shreejwal"
-                />
                 <SearchFilter
                     onSearch={this.handleSearch}
                 />

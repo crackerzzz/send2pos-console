@@ -16,7 +16,7 @@ const DummyData = (i) => {
     };
 }
 
-let getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
+let getRandomInt = (max) => 1 + Math.floor(Math.random() * Math.floor(max - 1));
 
 const SearchService = (params) => {
     const random = getRandomInt(5);
