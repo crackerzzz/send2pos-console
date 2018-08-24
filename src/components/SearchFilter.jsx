@@ -1,11 +1,10 @@
 import React from 'react';
-import MenuItem from 'material-ui/MenuItem';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import RaisedButton from 'material-ui/RaisedButton';
-import { Toolbar, ToolbarGroup, ToolbarSeparator } from 'material-ui/Toolbar';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import Button from '@material-ui/core/Button';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-import { TextField } from 'material-ui';
+import TextField from '@material-ui/core/TextField';
 import SearchCard from './SearchCard';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -45,9 +44,9 @@ class SearchFilter extends React.Component {
         };
     }
 
-    handleSelectionChange = (event, index, value) => {
-        this.setState({ selectedSearchField: value });
-        console.log('selection changed to ' + value);
+    handleSelectionChange = (event) => {
+        this.setState({ selectedSearchField: event.target.value });
+        console.log('selection changed to ' + event.target.value);
     };
 
     handleSearchValueChange = (event) => {
@@ -72,30 +71,31 @@ class SearchFilter extends React.Component {
         const { classes } = this.props;
         return (
             <form>
-                <Toolbar>
-                    <ToolbarGroup firstChild={true}>
-                        <DropDownMenu
-                            value={this.state.selectedSearchField} onChange={this.handleSelectionChange}>
-                            {searchFieldNames.map(entry =>
-                                <MenuItem key={entry.id} value={entry.id} primaryText={entry.value} />
-                            )}
-                        </DropDownMenu>
-                        <ToolbarSeparator />
-                        <TextField
-                            hintText="Search value"
-                            onChange={this.handleSearchValueChange}
-                            autoFocus={true}
-                        />
-                        <ToolbarSeparator />
-                        <RaisedButton label="Add" secondary={true}
-                            onClick={() => this.handleSearchAdd(this.state.selectedSearchField, this.state.selectedSearchValue)}
-                        />
-                        <ToolbarSeparator />
-                        <RaisedButton label="Search" primary={true}
-                            onClick={() => this.props.onSearch(this.state.searchFields)}
-                        />
-                    </ToolbarGroup>
-                </Toolbar>
+                <div>
+                    <Select
+                        value={this.state.selectedSearchField} onChange={this.handleSelectionChange}>
+                        {searchFieldNames.map(entry =>
+                            <MenuItem key={entry.id} value={entry.id}>{entry.value} </MenuItem>
+                        )}
+                    </Select>
+                    <TextField
+                        id="searchValue"
+                        label="Search value"
+                        value={this.state.selectedSearchValue}
+                        onChange={this.handleSearchValueChange}
+                        autoFocus={true}
+                    />
+                    <Button label="Add" variant="contained" color="secondary"
+                        onClick={() => this.handleSearchAdd(this.state.selectedSearchField, this.state.selectedSearchValue)}
+                    >
+                        Add
+                    </Button>
+                    <Button label="Search" variant="contained" color="primary"
+                        onClick={() => this.props.onSearch(this.state.searchFields)}
+                    >
+                        Search
+                    </Button>
+                </div>
                 {this.state.searchFields.length > 0 &&
                     <div className={classes.root}>
                         <GridList className={classes.gridList} cols={3}>
