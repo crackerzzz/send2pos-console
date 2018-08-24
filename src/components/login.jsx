@@ -60,11 +60,14 @@ class Login extends React.Component {
                 />
                 <br />
                 <Button
-                    label="Submit"
+                    label="Login"
                     variant="contained"
                     color="primary"
                     style={style}
-                    onClick={this.handleClick} >Submit</Button>
+                    onClick={this.handleClick}
+                >
+                    Login
+                </Button>
             </div>
         );
     }
