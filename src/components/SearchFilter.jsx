@@ -1,15 +1,8 @@
 import React from 'react';
 import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
 import TextField from '@material-ui/core/TextField';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl'
 import SearchCardList from './SearchCardList';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -107,7 +100,7 @@ class SearchFilter extends React.Component {
                             />
                         </Grid>
                         <Grid item  >
-                            <Button label="Add" variant="contained" color="secondary"
+                            <Button label="Add" variant="outlined" color="secondary"
                                 onClick={() => this.handleSearchAdd(this.state.selectedSearchField, this.state.selectedSearchValue)}
                             >
                                 Add

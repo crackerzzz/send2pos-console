@@ -1,16 +1,18 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { Switch, Route } from "react-router-dom";
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import { createMuiTheme } from '@material-ui/core/styles';
+import blue from '@material-ui/core/colors/blue';
 
 import Main from './Main';
 import Login from './Login';
 import PrivateRoute from './PrivateRoute';
 
+const theme = createMuiTheme();
+
+
 const App = () => (
-    <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
+    <MuiThemeProvider theme={theme}>
         <Switch>
             <Route path='/login' component={Login} />
             <PrivateRoute exact path='/' component={Main} />

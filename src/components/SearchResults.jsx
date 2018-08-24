@@ -1,8 +1,6 @@
 import React from 'react';
 import EnhancedTable from './EnhancedTable';
 import PropTypes from 'prop-types';
-import JsonViewer from './JsonViewer';
-import SearchService from '../services/SearchService';
 
 const columnData = [
     { id: 'country', numeric: false, disablePadding: true, label: 'Country' },

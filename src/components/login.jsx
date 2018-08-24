@@ -1,9 +1,7 @@
 import React from 'react';
-import { Route, Redirect } from "react-router-dom";
-import MuiThemeProvider from 'material-ui/styles';
-import TextField from "material-ui/TextField";
-import AppBar, { RaisedButton } from 'material-ui';
-import PropTypes from 'prop-types';
+import { Redirect } from "react-router-dom";
+import TextField from "@material-ui/core/TextField";
+import Button from '@material-ui/core/Button';
 import AuthService from '../services/AuthService';
 
 class Login extends React.Component {
@@ -24,14 +22,12 @@ class Login extends React.Component {
         this.setState({ password: e.target.value })
     }
 
-    handleClick = (event) => {
-
+    handleClick = () => {
         let payload = {
             username: this.state.username,
             password: this.state.password,
             redirectToReferrer: true,
         };
-
         AuthService.authenticate(payload, () => {
             this.setState(payload);
         });
@@ -48,22 +44,27 @@ class Login extends React.Component {
         return (
             <div>
                 <TextField
-                    hintText="Enter your username"
-                    floatingLabelText="Username"
+                    id="username"
+                    label="Username"
+                    value={this.state.username}
+                    autoFocus={true}
+                    margin="normal"
                     onChange={this.handleUsernameChange}
                 />
                 <TextField
+                    id="password"
+                    label="Password"
+                    value={this.state.password}
                     type="password"
-                    hintText="Enter your password"
-                    floatingLabelText="Password"
                     onChange={this.handlePasswordChange}
                 />
                 <br />
-                <RaisedButton
+                <Button
                     label="Submit"
-                    primary={true}
+                    variant="contained"
+                    color="primary"
                     style={style}
-                    onClick={this.handleClick} />
+                    onClick={this.handleClick} >Submit</Button>
             </div>
         );
     }

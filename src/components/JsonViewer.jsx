@@ -1,9 +1,6 @@
 import React from 'react';
-import Fragment from 'react';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import Dialog from 'material-ui/Dialog';
-import { TextField } from 'material-ui';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
 import JSONPretty from 'react-json-pretty';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import PropTypes from 'prop-types';
@@ -24,24 +21,33 @@ class JsonViewer extends React.Component {
 
     render() {
         const actions = [
-            <FlatButton
+            <Button
                 label="Ok"
-                primary={true}
+                variant="contained"
+                color="primary"
                 onClick={this.handleClose}
-            />,
+            >Ok</Button>,
 
             <CopyToClipboard text={this.props.json}>
-                <FlatButton
+                <Button
                     label="Copy to clipboard"
-                    primary={true}
+                    variant="contained"
+                    color="primary"
                     onClick={this.copied}
-                />
+                >Copy to clipboard</Button>
             </CopyToClipboard>
         ];
 
         return (
             <React.Fragment>
-                <RaisedButton label="Open" onClick={this.handleOpen} />
+                <Button
+                    label="Open"
+                    variant="contained"
+                    color="primary"
+                    onClick={this.handleOpen}
+                >
+                    Open
+                </Button>
                 <Dialog
                     title={this.props.title}
                     actions={actions}
@@ -51,7 +57,7 @@ class JsonViewer extends React.Component {
                     autoScrollBodyContent={true}
                     style={{ fontSize: '10px' }}
                 >
-                    <JSONPretty json={this.props.json}></JSONPretty>
+                    <JSONPretty json={this.props.json} />
                 </Dialog>
             </React.Fragment>
         );
