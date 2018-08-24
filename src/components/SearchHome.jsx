@@ -20,7 +20,7 @@ const columnData = [
     { id: 'response', numeric: false, disablePadding: false, label: 'Response' },
 ];
 
-class Home extends React.Component {
+class SearchHome extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -57,4 +57,4 @@ class Home extends React.Component {
     }
 }
 
-export default Home;
+export default SearchHome;

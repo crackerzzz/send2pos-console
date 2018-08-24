@@ -1,12 +1,12 @@
 import React from 'react';
 import MenuAppBar from './MenuAppBar';
 import Header from './Header';
-import Home from './Home';
+import SearchHome from './SearchHome';
 
 const Main = () => (
         <div>
             <MenuAppBar />
-            <Home />
+            <SearchHome />
         </div>
 )
 

@@ -1,16 +1,14 @@
 import React from 'react';
-import IconMenu from 'material-ui/IconMenu';
-import IconButton from 'material-ui/IconButton';
-import FontIcon from 'material-ui/FontIcon';
-import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
 import MenuItem from 'material-ui/MenuItem';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import RaisedButton from 'material-ui/RaisedButton';
-import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar';
+import { Toolbar, ToolbarGroup, ToolbarSeparator } from 'material-ui/Toolbar';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
 import { TextField } from 'material-ui';
-import FlatButton from 'material-ui/FlatButton';
 import SearchCard from './SearchCard';
 import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 
 const searchFieldNames = [
     { value: 'Order Number', id: 'OrderNumber' },
@@ -18,8 +16,23 @@ const searchFieldNames = [
     { value: 'Client Id', id: 'ClientId' },
 ];
 
-const styles = {
 
+const styles = {
+    card: {
+        minWidth: 275,
+    },
+    bullet: {
+        display: 'inline-block',
+        margin: '0 2px',
+        transform: 'scale(0.8)',
+    },
+    title: {
+        marginBottom: 16,
+        fontSize: 14,
+    },
+    pos: {
+        marginBottom: 12,
+    }
 };
 
 class SearchFilter extends React.Component {
@@ -55,8 +68,8 @@ class SearchFilter extends React.Component {
         });
     }
 
-
     render() {
+        const { classes } = this.props;
         return (
             <form>
                 <Toolbar>
@@ -83,9 +96,17 @@ class SearchFilter extends React.Component {
                         />
                     </ToolbarGroup>
                 </Toolbar>
-                {this.state.searchFields.map((f, index) =>
-                    <SearchCard key={index} searchFor={f.searchFor} searchText={f.searchText} onRemove={() => this.handleSearchRemove(index)} />
-                )}
+                {this.state.searchFields.length > 0 &&
+                    <div className={classes.root}>
+                        <GridList className={classes.gridList} cols={3}>
+                            {this.state.searchFields.map((f, index) =>
+                                <GridListTile key={index} cols={1}>
+                                    <SearchCard key={index} searchFor={f.searchFor} searchText={f.searchText} onRemove={() => this.handleSearchRemove(index)} />
+                                </GridListTile>
+                            )}
+                        </GridList>
+                    </div>
+                }
             </form>
         );
     }
@@ -95,4 +116,4 @@ SearchCard.prototypes = {
     onSearch: PropTypes.func.isRequired,
 };
 
-export default SearchFilter;
+export default withStyles(styles)(SearchFilter);

@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 
 const styles = {
     card: {
-        minWidth: 275,
+        minWidth: 50,
     },
     bullet: {
         display: 'inline-block',
@@ -32,8 +32,9 @@ class SearchCard extends React.Component {
     }
 
     render() {
+        const { classes } = this.props;
         return (
-            <Card>
+            <Card className={classes.card}>
                 <CardContent>
                     <Typography component="p">
                         search for : {this.props.searchFor}
@@ -51,8 +52,9 @@ class SearchCard extends React.Component {
 }
 
 SearchCard.prototypes = {
-    searchFor: PropTypes.string,
-    searchText: PropTypes.string
+    searchFor: PropTypes.string.isRequired,
+    searchText: PropTypes.string.isRequired,
+    onRemove: PropTypes.func.isRequired
 };
 
-export default SearchCard;
+export default withStyles(styles)(SearchCard);
