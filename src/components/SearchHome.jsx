@@ -1,6 +1,5 @@
 import React from 'react';
 
-import TopBar from './TopBar';
 import SearchFilter from './SearchFilter';
 import SearchService from '../services/SearchService';
 import EnhancedTable from './EnhancedTable';

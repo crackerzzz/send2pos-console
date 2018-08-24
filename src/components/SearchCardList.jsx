@@ -12,7 +12,7 @@ const styles = theme => ({
     },
     formControl: {
         margin: theme.spacing.unit,
-        minWidth: 120,
+        minWidth: 200,
     },
     selectEmpty: {
         marginTop: theme.spacing.unit * 2,
@@ -30,7 +30,7 @@ class SearchCardList extends React.Component {
             <div className={classes.root}>
                 {
                     this.props.searchFields.length > 0 &&
-                    <GridList className={classes.gridList} cols={3}>
+                    <GridList className={classes.gridList}>
                         {this.props.searchFields.map((f, index) =>
                             <GridListTile key={index} cols={1}>
                                 <SearchCard key={index} searchFor={f.searchFor} searchText={f.searchText} onRemove={() => this.props.onRemove(index)} />

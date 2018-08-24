@@ -2,6 +2,7 @@ import React from 'react';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import TextField from '@material-ui/core/TextField';
@@ -75,41 +76,54 @@ class SearchFilter extends React.Component {
         return (
             <form>
                 <div>
-                    <FormControl required>
-                        <InputLabel htmlFor="search-for-required">Search For</InputLabel>
-                        <Select
-                            value={this.state.selectedSearchField}
-                            onChange={this.handleSelectionChange}
-                            inputProps={{
-                                id: 'search-for-required',
-                            }}
-                        >
-                            {searchFieldNames.map(entry =>
-                                <MenuItem key={entry.id} value={entry.id}>{entry.value} </MenuItem>
-                            )}
-                        </Select>
-                        <FormHelperText>Required</FormHelperText>
-                    </FormControl>
-                    <TextField
-                        id="searchValue"
-                        label="Search value"
-                        value={this.state.selectedSearchValue}
-                        onChange={this.handleSearchValueChange}
-                        autoFocus={true}
-                    />
-                    <Button label="Add" variant="contained" color="secondary"
-                        onClick={() => this.handleSearchAdd(this.state.selectedSearchField, this.state.selectedSearchValue)}
-                    >
-                        Add
-                    </Button>
-                    <Button label="Search" variant="contained" color="primary"
-                        onClick={() => this.props.onSearch(this.state.searchFields)}
-                    >
-                        Search
-                    </Button>
-                </div>
+                    <Grid container spacing={16} alignItems="baseline">
+                        <Grid item  >
+                            <TextField
+                                id="searchFor"
+                                select
+                                label="Search For"
+                                value={this.state.selectedSearchField}
+                                onChange={this.handleSelectionChange}
+                                SelectProps={{
+                                    MenuProps: {
+                                        className: classes.menu,
+                                    },
+                                }}
+                                margin="normal"
+                            >
+                                {searchFieldNames.map(entry =>
+                                    <MenuItem key={entry.id} value={entry.id}>{entry.value} </MenuItem>
+                                )}
+                            </TextField>
+                        </Grid>
+                        <Grid item  >
+                            <TextField
+                                id="searchValue"
+                                label="Search Value"
+                                value={this.state.selectedSearchValue}
+                                onChange={this.handleSearchValueChange}
+                                autoFocus={true}
+                                margin="normal"
+                            />
+                        </Grid>
+                        <Grid item  >
+                            <Button label="Add" variant="contained" color="secondary"
+                                onClick={() => this.handleSearchAdd(this.state.selectedSearchField, this.state.selectedSearchValue)}
+                            >
+                                Add
+                            </Button>
+                        </Grid>
+                        <Grid item  >
+                            <Button label="Search" variant="contained" color="primary"
+                                onClick={() => this.props.onSearch(this.state.searchFields)}
+                            >
+                                Search
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </div >
                 <SearchCardList searchFields={this.state.searchFields} onRemove={this.handleSearchRemove} />
-            </form>
+            </form >
         );
     }
 }
