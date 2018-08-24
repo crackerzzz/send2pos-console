@@ -4,10 +4,11 @@ import Header from './Header';
 import SearchHome from './SearchHome';
 
 const Main = () => (
-        <div>
-            <MenuAppBar />
-            <SearchHome />
-        </div>
+    <div>
+        <MenuAppBar />
+        <p />
+        <SearchHome />
+    </div>
 )
 
 export default Main;

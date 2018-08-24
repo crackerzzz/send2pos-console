@@ -5,7 +5,11 @@ import Button from '@material-ui/core/Button';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import TextField from '@material-ui/core/TextField';
-import SearchCard from './SearchCard';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl'
+import SearchCardList from './SearchCardList';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -14,7 +18,6 @@ const searchFieldNames = [
     { value: 'Customer Name', id: 'CustomerName' },
     { value: 'Client Id', id: 'ClientId' },
 ];
-
 
 const styles = {
     card: {
@@ -72,12 +75,21 @@ class SearchFilter extends React.Component {
         return (
             <form>
                 <div>
-                    <Select
-                        value={this.state.selectedSearchField} onChange={this.handleSelectionChange}>
-                        {searchFieldNames.map(entry =>
-                            <MenuItem key={entry.id} value={entry.id}>{entry.value} </MenuItem>
-                        )}
-                    </Select>
+                    <FormControl required>
+                        <InputLabel htmlFor="search-for-required">Search For</InputLabel>
+                        <Select
+                            value={this.state.selectedSearchField}
+                            onChange={this.handleSelectionChange}
+                            inputProps={{
+                                id: 'search-for-required',
+                            }}
+                        >
+                            {searchFieldNames.map(entry =>
+                                <MenuItem key={entry.id} value={entry.id}>{entry.value} </MenuItem>
+                            )}
+                        </Select>
+                        <FormHelperText>Required</FormHelperText>
+                    </FormControl>
                     <TextField
                         id="searchValue"
                         label="Search value"
@@ -96,23 +108,13 @@ class SearchFilter extends React.Component {
                         Search
                     </Button>
                 </div>
-                {this.state.searchFields.length > 0 &&
-                    <div className={classes.root}>
-                        <GridList className={classes.gridList} cols={3}>
-                            {this.state.searchFields.map((f, index) =>
-                                <GridListTile key={index} cols={1}>
-                                    <SearchCard key={index} searchFor={f.searchFor} searchText={f.searchText} onRemove={() => this.handleSearchRemove(index)} />
-                                </GridListTile>
-                            )}
-                        </GridList>
-                    </div>
-                }
+                <SearchCardList searchFields={this.state.searchFields} onRemove={this.handleSearchRemove} />
             </form>
         );
     }
 }
 
-SearchCard.prototypes = {
+SearchFilter.prototypes = {
     onSearch: PropTypes.func.isRequired,
 };
 
