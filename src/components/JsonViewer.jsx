@@ -1,9 +1,12 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import OpenInNew from '@material-ui/icons/OpenInNew';
 import JSONPretty from 'react-json-pretty';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import PropTypes from 'prop-types';
+import { DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
 
 class JsonViewer extends React.Component {
     constructor(props) {
@@ -20,46 +23,52 @@ class JsonViewer extends React.Component {
     copied = () => alert("Copied to clipboard")
 
     render() {
-        const actions = [
-            <Button
-                label="Ok"
-                variant="contained"
-                color="primary"
-                onClick={this.handleClose}
-            >Ok</Button>,
-
-            <CopyToClipboard text={this.props.json}>
-                <Button
-                    label="Copy to clipboard"
-                    variant="contained"
-                    color="primary"
-                    onClick={this.copied}
-                >Copy to clipboard</Button>
-            </CopyToClipboard>
-        ];
-
         return (
             <React.Fragment>
                 <Button
                     label="Open"
-                    variant="contained"
+                    variant="fab"
                     color="primary"
                     onClick={this.handleOpen}
                 >
-                    Open
+                    <OpenInNew />
                 </Button>
                 <Dialog
-                    title={this.props.title}
-                    actions={actions}
-                    modal={false}
+                    onClose={this.handleClose}
                     open={this.state.open}
-                    onRequestClose={this.handleClose}
-                    autoScrollBodyContent={true}
-                    style={{ fontSize: '10px' }}
+                    scroll='paper'
+                    aria-labelledby="scroll-dialog-title"
                 >
-                    <JSONPretty json={this.props.json} />
+                    <DialogTitle id="simple-dialog-title">
+                        {this.props.title}
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            <JSONPretty json={this.props.json} />
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button
+                            label="Ok"
+                            variant="contained"
+                            color="primary"
+                            onClick={this.handleClose}
+                        >
+                            Ok
+                        </Button>
+                        <CopyToClipboard text={this.props.json}>
+                            <Button
+                                label="Copy to clipboard"
+                                variant="contained"
+                                color="primary"
+                                onClick={this.copied}
+                            >
+                                Copy to clipboard
+                            </Button>
+                        </CopyToClipboard>
+                    </DialogActions>
                 </Dialog>
-            </React.Fragment>
+            </React.Fragment >
         );
     }
 }
