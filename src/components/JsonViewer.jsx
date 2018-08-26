@@ -74,8 +74,8 @@ class JsonViewer extends React.Component {
 }
 
 JsonViewer.prototypes = {
-    json: PropTypes.string,
-    title: PropTypes.string
+    json: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
 };
 
 export default JsonViewer;
