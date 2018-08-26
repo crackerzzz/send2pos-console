@@ -34,7 +34,8 @@ class SearchResults extends React.Component {
 }
 
 SearchResults.prototypes = {
-    results: PropTypes.arrayOf(PropTypes.object),
+    results: PropTypes.arrayOf(PropTypes.object).isRequired,
+    searchParams: ProtoTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default SearchResults;

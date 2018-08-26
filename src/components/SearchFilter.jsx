@@ -43,18 +43,15 @@ class SearchFilter extends React.Component {
 
     handleSelectionChange = (event) => {
         this.setState({ selectedSearchField: event.target.value });
-        console.log('selection changed to ' + event.target.value);
     };
 
     handleSearchValueChange = (event) => {
         this.setState({ selectedSearchValue: event.target.value });
-        console.log('search value changed to ' + event.target.value);
     };
 
-    handleSearchAdd = (index, value) => {
-        const newSearchItem = { searchFor: index, searchText: value };
+    handleSearchAdd = () => {
+        const newSearchItem = { searchFor: this.state.selectedSearchField, searchText: this.state.selectedSearchValue };
         this.setState({ searchFields: [...this.state.searchFields, newSearchItem] });
-        console.log('New Search Field: ' + JSON.stringify(newSearchItem));
     };
 
     handleSearchRemove = (index) => {
@@ -62,6 +59,10 @@ class SearchFilter extends React.Component {
         this.setState({
             searchFields: tSearchFields.slice(0, index - 1).concat(tSearchFields.slice(index + 1, tSearchFields.length))
         });
+    }
+
+    handleSearch = () => {
+        this.props.onSearch(this.state.searchFields);
     }
 
     render() {
@@ -101,14 +102,14 @@ class SearchFilter extends React.Component {
                         </Grid>
                         <Grid item  >
                             <Button label="Add" variant="outlined" color="secondary"
-                                onClick={() => this.handleSearchAdd(this.state.selectedSearchField, this.state.selectedSearchValue)}
+                                onClick={this.handleSearchAdd}
                             >
                                 Add
                             </Button>
                         </Grid>
                         <Grid item  >
                             <Button label="Search" variant="contained" color="primary"
-                                onClick={() => this.props.onSearch(this.state.searchFields)}
+                                onClick={this.handleSearch}
                             >
                                 Search
                             </Button>

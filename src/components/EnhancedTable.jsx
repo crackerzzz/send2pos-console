@@ -303,6 +303,9 @@ class EnhancedTable extends React.Component {
 
 EnhancedTable.propTypes = {
     classes: PropTypes.object.isRequired,
+    columnData: PropTypes.arrayOf(PropTypes.object).isRequired,
+    rowData: PropTypes.arrayOf(PropTypes.object).isRequired,
+    searchParam: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default withStyles(styles)(EnhancedTable);
