@@ -33,7 +33,11 @@ class SearchCardList extends React.Component {
                     <GridList className={classes.gridList}>
                         {this.props.searchFields.map((f, index) =>
                             <GridListTile key={index} cols={1}>
-                                <SearchCard key={index} searchFor={f.searchFor} searchText={f.searchText} onRemove={() => this.props.onRemove(index)} />
+                                <SearchCard
+                                    key={index}
+                                    searchFor={f.searchFor}
+                                    searchText={f.searchText}
+                                    onRemove={() => this.props.onRemove(index)} />
                             </GridListTile>
                         )}
                     </GridList>

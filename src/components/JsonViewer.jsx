@@ -68,12 +68,12 @@ class JsonViewer extends React.Component {
                         </CopyToClipboard>
                     </DialogActions>
                 </Dialog>
-            </React.Fragment >
+            </React.Fragment>
         );
     }
 }
 
-JsonViewer.prototypes = {
+JsonViewer.propTypes = {
     json: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
 };
