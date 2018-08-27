@@ -1,7 +1,5 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Card from '@material-ui/core/Card';
@@ -9,7 +7,6 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import SearchCard from './SearchCard';
 import { CardHeader } from '@material-ui/core';
 
 const styles = theme => ({

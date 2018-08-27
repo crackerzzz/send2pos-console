@@ -52,10 +52,12 @@ class MenuAppBar extends React.Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
+            {/*
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
               <MenuIcon />
             </IconButton>
-            <Typography variant="title" color="inherit" className={classes.flex}>
+            */}
+            <Typography variant="title" color="inherit" className={classes.flex} align="center">
               Send2Pos Support Console
             </Typography>
             <div>
@@ -81,8 +83,10 @@ class MenuAppBar extends React.Component {
                 open={open}
                 onClose={this.handleClose}
               >
+                {/*
                 <MenuItem onClick={this.handleClose}>Profile</MenuItem>
                 <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                */}
                 <MenuItem onClick={this.handleSignOut}>Sign out</MenuItem>
               </Menu>
             </div>
