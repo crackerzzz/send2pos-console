@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 const styles = {
@@ -43,9 +41,6 @@ class SearchCard extends React.Component {
                         search text: {this.props.searchText}
                     </Typography>
                 </CardContent>
-                <CardActions>
-                    <Button size="small" onClick={this.props.onRemove}>X</Button>
-                </CardActions>
             </Card>
         );
     }
@@ -54,7 +49,6 @@ class SearchCard extends React.Component {
 SearchCard.prototypes = {
     searchFor: PropTypes.string.isRequired,
     searchText: PropTypes.string.isRequired,
-    onRemove: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(SearchCard);

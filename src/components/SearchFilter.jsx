@@ -3,9 +3,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import SearchCardList from './SearchCardList';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+import SearchCardList from './SearchCardList';
 
 const searchFieldNames = [
     { value: 'Order Number', id: 'OrderNumber' },
@@ -51,13 +51,14 @@ class SearchFilter extends React.Component {
 
     handleSearchAdd = () => {
         const newSearchItem = { searchFor: this.state.selectedSearchField, searchText: this.state.selectedSearchValue };
-        this.setState({ searchFields: [...this.state.searchFields, newSearchItem] });
+        this.setState({ searchFields: [...this.state.searchFields, newSearchItem], selectedSearchValue: "" });
     };
 
     handleSearchRemove = (index) => {
-        const tSearchFields = this.state.searchFields;
+        const array = [...this.state.searchFields];
+        array.splice(index, 1);
         this.setState({
-            searchFields: tSearchFields.slice(0, index - 1).concat(tSearchFields.slice(index + 1, tSearchFields.length))
+            searchFields: array
         });
     }
 
