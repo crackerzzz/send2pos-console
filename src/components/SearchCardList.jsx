@@ -1,12 +1,16 @@
 import React from 'react';
-import GridList from '@material-ui/core/GridList';
+import Grid from '@material-ui/core/Grid';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import SearchCard from './SearchCard';
+import { CardHeader } from '@material-ui/core';
 
 const styles = theme => ({
     root: {
@@ -44,31 +48,30 @@ class SearchCardList extends React.Component {
             <div className={classes.root}>
                 {
                     this.props.searchFields.length > 0 &&
-                    <GridList className={classes.gridList} cols={2.5}>
+                    <Grid container spacing={40} alignItems="flex-end" wrap="nowrap">
                         {this.props.searchFields.map((f, index) =>
-                            <GridListTile
-                                key={index}
-                                className={classes.gridListTile}>
-                                <SearchCard
-                                    key={index}
-                                    searchFor={f.searchFor}
-                                    searchText={f.searchText}
-                                />
-                                <GridListTileBar
-                                    title=' '
-                                    classes={{
-                                        root: classes.titleBar,
-                                        title: classes.title,
-                                    }}
-                                    actionIcon={
-                                        <IconButton color="primary" onClick={() => this.props.onRemove(index)}>
-                                            <CloseIcon />
-                                        </IconButton>
-                                    }
-                                />
-                            </GridListTile>
+                            <Grid item
+                                key={index} xs={12} sm={6} md={4}>
+                                <Card className={classes.card}>
+                                    <CardHeader
+                                        title={f.searchFor}
+                                        titleTypographyProps={{ align: 'center' }}
+                                        action={
+                                            <IconButton color="primary" onClick={() => this.props.onRemove(index)}>
+                                                <CloseIcon />
+                                            </IconButton>
+                                        }
+                                        className={classes.cardHeader}
+                                    />
+                                    <CardContent>
+                                        <Typography variant="headline" component="h2">
+                                            search text: {f.searchText}
+                                        </Typography>
+                                    </CardContent>
+                                </Card>
+                            </Grid>
                         )}
-                    </GridList>
+                    </Grid>
                 }
             </div>
         );
