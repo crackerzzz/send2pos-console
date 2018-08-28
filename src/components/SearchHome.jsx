@@ -1,8 +1,8 @@
 import React from 'react';
-
 import SearchFilter from './SearchFilter';
 import SearchService from '../services/SearchService';
 import EnhancedTable from './EnhancedTable';
+import { withStyles } from '@material-ui/core';
 
 const columnData = [
     { id: 'country', numeric: false, disablePadding: true, label: 'Country' },
@@ -18,6 +18,12 @@ const columnData = [
     { id: 'request', numeric: false, disablePadding: false, label: 'Request' },
     { id: 'response', numeric: false, disablePadding: false, label: 'Response' },
 ];
+
+const style = {
+    root: {
+        margin: 8
+    }
+}
 
 class SearchHome extends React.Component {
     constructor(props) {
@@ -41,8 +47,9 @@ class SearchHome extends React.Component {
     }
 
     render() {
+        const { classes } = this.props;
         return (
-            <div>
+            <div className={classes.root}>
                 <SearchFilter
                     onSearch={this.handleSearch}
                 />
@@ -56,4 +63,4 @@ class SearchHome extends React.Component {
     }
 }
 
-export default SearchHome;
+export default withStyles(style)(SearchHome);

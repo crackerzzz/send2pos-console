@@ -10,6 +10,7 @@ import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import MenuAppBar from './MenuAppBar';
 import AuthService from '../services/AuthService';
 
 const styles = theme => ({
@@ -85,6 +86,7 @@ class Login extends React.Component {
         return (
             <React.Fragment>
                 <CssBaseline />
+                <MenuAppBar auth={false} />
                 <main className={classes.layout}>
                     <Paper className={classes.paper}>
                         <Avatar className={classes.avatar}>

@@ -1,13 +1,16 @@
 import React from 'react';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import MenuAppBar from './MenuAppBar';
 import SearchHome from './SearchHome';
 
+
 const Main = () => (
-    <div>
-        <MenuAppBar />
+    <React.Fragment>
+        <CssBaseline />
+        <MenuAppBar auth={true} />
         <p />
         <SearchHome />
-    </div>
+    </React.Fragment>
 )
 
 export default Main;

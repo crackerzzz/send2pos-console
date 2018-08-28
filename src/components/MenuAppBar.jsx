@@ -44,8 +44,8 @@ class MenuAppBar extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
-    const { auth, anchorEl } = this.state;
+    const { auth, classes } = this.props;
+    const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
     return (
@@ -60,36 +60,38 @@ class MenuAppBar extends React.Component {
             <Typography variant="title" color="inherit" className={classes.flex} align="center">
               Send2Pos Support Console
             </Typography>
-            <div>
-              <IconButton
-                aria-owns={open ? 'menu-appbar' : null}
-                aria-haspopup="true"
-                onClick={this.handleMenu}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={open}
-                onClose={this.handleClose}
-              >
-                {/*
+            {auth &&
+              <div>
+                <IconButton
+                  aria-owns={open ? 'menu-appbar' : null}
+                  aria-haspopup="true"
+                  onClick={this.handleMenu}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={open}
+                  onClose={this.handleClose}
+                >
+                  {/*
                 <MenuItem onClick={this.handleClose}>Profile</MenuItem>
                 <MenuItem onClick={this.handleClose}>My account</MenuItem>
                 */}
-                <MenuItem onClick={this.handleSignOut}>Sign out</MenuItem>
-              </Menu>
-            </div>
+                  <MenuItem onClick={this.handleSignOut}>Sign out</MenuItem>
+                </Menu>
+              </div>
+            }
           </Toolbar>
         </AppBar>
       </div>

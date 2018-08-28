@@ -2,14 +2,11 @@ import React from 'react';
 import { Switch, Route } from "react-router-dom";
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { createMuiTheme } from '@material-ui/core/styles';
-import blue from '@material-ui/core/colors/blue';
-
 import Main from './Main';
 import Login from './Login';
 import PrivateRoute from './PrivateRoute';
 
 const theme = createMuiTheme();
-
 
 const App = () => (
     <MuiThemeProvider theme={theme}>
