@@ -52,6 +52,7 @@ class SearchFilter extends React.Component {
     handleSearchAdd = () => {
         const newSearchItem = { searchFor: this.state.selectedSearchField, searchText: this.state.selectedSearchValue };
         this.setState({ searchFields: [...this.state.searchFields, newSearchItem], selectedSearchValue: "" });
+        this.props.onChange();
     };
 
     handleSearchRemove = (index) => {
@@ -60,6 +61,7 @@ class SearchFilter extends React.Component {
         this.setState({
             searchFields: array
         });
+        this.props.onChange();
     }
 
     handleSearch = () => {
@@ -142,6 +144,7 @@ class SearchFilter extends React.Component {
 
 SearchFilter.prototypes = {
     onSearch: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(SearchFilter);

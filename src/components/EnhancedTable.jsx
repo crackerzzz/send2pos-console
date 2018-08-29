@@ -14,8 +14,37 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
 import Tooltip from '@material-ui/core/Tooltip';
+import blue from '@material-ui/core/colors/blue';
+import grey from '@material-ui/core/colors/grey';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
 import JsonViewer from './JsonViewer';
+
+function desc(a, b, orderBy) {
+    if (b[orderBy] < a[orderBy]) {
+        return -1;
+    }
+    if (b[orderBy] > a[orderBy]) {
+        return 1;
+    }
+    return 0;
+}
+
+function getSorting(order, orderBy) {
+    return order === 'desc' ? (a, b) => desc(a, b, orderBy) : (a, b) => -desc(a, b, orderBy);
+}
+
+const CustomTableCell = withStyles(theme => ({
+    root: {
+
+    },
+    /* head: {
+         backgroundColor: theme.palette.common.black,
+         color: theme.palette.common.white,
+     },*/
+    body: {
+        fontSize: 14,
+    },
+}))(TableCell);
 
 class EnhancedTableHead extends React.Component {
     constructor(props) {
@@ -32,16 +61,16 @@ class EnhancedTableHead extends React.Component {
         return (
             <TableHead>
                 <TableRow>
-                    <TableCell padding="checkbox">
+                    <CustomTableCell padding="checkbox">
                         <Checkbox
                             indeterminate={numSelected > 0 && numSelected < rowCount}
                             checked={numSelected === rowCount}
                             onChange={onSelectAllClick}
                         />
-                    </TableCell>
+                    </CustomTableCell>
                     {columnData.map(column => {
                         return (
-                            <TableCell
+                            <CustomTableCell
                                 key={column.id}
                                 numeric={column.numeric}
                                 padding={column.disablePadding ? 'none' : 'default'}
@@ -60,7 +89,7 @@ class EnhancedTableHead extends React.Component {
                                         {column.label}
                                     </TableSortLabel>
                                 </Tooltip>
-                            </TableCell>
+                            </CustomTableCell>
                         );
                     }, this)}
                 </TableRow>
@@ -116,11 +145,11 @@ let EnhancedTableToolbar = props => {
                 {numSelected > 0 ? (
                     <Typography color="inherit" variant="subheading">
                         {numSelected} selected
-          </Typography>
+                    </Typography>
                 ) : (
                         <Typography variant="title" id="tableTitle">
                             Send2Pos Orders
-          </Typography>
+                    </Typography>
                     )}
             </div>
             <div className={classes.spacer} />
@@ -143,11 +172,16 @@ const styles = theme => ({
         marginTop: theme.spacing.unit * 3,
     },
     table: {
-        minWidth: 1020,
+        minWidth: '100%',
     },
     tableWrapper: {
         overflowX: 'auto',
     },
+    row: {
+        '&:nth-of-type(odd)': {
+            backgroundColor: theme.palette.background.default,
+        },
+    }
 });
 
 class EnhancedTable extends React.Component {
@@ -239,41 +273,45 @@ class EnhancedTable extends React.Component {
                             onRequestSort={this.handleRequestSort}
                             rowCount={rowData.length}
                         />
-                        <TableBody >
-                            {rowData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(n => {
-                                const isSelected = this.isSelected(n.id);
-                                return (
-                                    <TableRow
-                                        hover
-                                        onClick={event => this.handleClick(event, n.id)}
-                                        role="checkbox"
-                                        aria-checked={isSelected}
-                                        tabIndex={-1}
-                                        key={n.id}
-                                        selected={isSelected}
-                                    >
-                                        <TableCell padding="checkbox">
-                                            <Checkbox checked={isSelected} />
-                                        </TableCell>
-                                        <TableCell>{n.country}</TableCell>
-                                        <TableCell>{n.storeNo}</TableCell>
-                                        <TableCell>{n.brand}</TableCell>
-                                        <TableCell>{n.franchiseCode}</TableCell>
-                                        <TableCell>{n.franchiseChannel}</TableCell>
-                                        <TableCell>{n.clientId}</TableCell>
-                                        <TableCell>{n.customerName}</TableCell>
-                                        <TableCell>{n.orderNumber}</TableCell>
-                                        <TableCell>{n.date}</TableCell>
-                                        <TableCell>{n.status}</TableCell>
-                                        <TableCell>
-                                            <JsonViewer title="Request Payload" json={n.request} />
-                                        </TableCell>
-                                        <TableCell>
-                                            <JsonViewer title="Response Payload" json={n.response} />
-                                        </TableCell>
-                                    </TableRow>
-                                );
-                            })}
+                        <TableBody>
+                            {rowData
+                                .sort(getSorting(order, orderBy))
+                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                .map((n, index) => {
+                                    const isSelected = this.isSelected(n.id);
+                                    return (
+                                        <TableRow
+                                            hover
+                                            onClick={event => this.handleClick(event, n.id)}
+                                            role="checkbox"
+                                            aria-checked={isSelected}
+                                            tabIndex={-1}
+                                            key={n.id}
+                                            className={classes.row}
+                                            selected={isSelected}
+                                        >
+                                            <TableCell padding="checkbox">
+                                                <Checkbox checked={isSelected} />
+                                            </TableCell>
+                                            <TableCell>{n.country}</TableCell>
+                                            <TableCell>{n.storeNo}</TableCell>
+                                            <TableCell>{n.brand}</TableCell>
+                                            <TableCell>{n.franchiseCode}</TableCell>
+                                            <TableCell>{n.franchiseChannel}</TableCell>
+                                            <TableCell>{n.clientId}</TableCell>
+                                            <TableCell>{n.customerName}</TableCell>
+                                            <TableCell>{n.orderNumber}</TableCell>
+                                            <TableCell>{n.date}</TableCell>
+                                            <TableCell>{n.status}</TableCell>
+                                            <TableCell>
+                                                <JsonViewer title="Request Payload" json={n.request} />
+                                            </TableCell>
+                                            <TableCell>
+                                                <JsonViewer title="Response Payload" json={n.response} />
+                                            </TableCell>
+                                        </TableRow>
+                                    );
+                                })}
                             {emptyRows > 0 && (
                                 <TableRow style={{ height: 49 * emptyRows }}>
                                     <TableCell colSpan={6} />

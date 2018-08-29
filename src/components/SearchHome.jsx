@@ -46,12 +46,19 @@ class SearchHome extends React.Component {
         });
     }
 
+    handleChange = () => {
+        this.setState({
+            results: []
+        });
+    }
+
     render() {
         const { classes } = this.props;
         return (
             <div className={classes.root}>
                 <SearchFilter
                     onSearch={this.handleSearch}
+                    onChange={this.handleChange}
                 />
                 <EnhancedTable
                     onSort={this.handleSorting}
