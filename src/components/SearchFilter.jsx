@@ -71,7 +71,9 @@ class SearchFilter extends React.Component {
         return (
             <form>
                 <div>
-                    <Grid container spacing={16} alignItems="baseline">
+                    <Grid container
+                        spacing={16}
+                        alignItems="baseline">
                         <Grid item  >
                             <TextField
                                 id="searchFor"
@@ -87,7 +89,12 @@ class SearchFilter extends React.Component {
                                 margin="normal"
                             >
                                 {searchFieldNames.map(entry =>
-                                    <MenuItem key={entry.id} value={entry.id}>{entry.value} </MenuItem>
+                                    <MenuItem
+                                        key={entry.id}
+                                        value={entry.id}
+                                    >
+                                        {entry.value}
+                                    </MenuItem>
                                 )}
                             </TextField>
                         </Grid>
@@ -102,22 +109,32 @@ class SearchFilter extends React.Component {
                             />
                         </Grid>
                         <Grid item  >
-                            <Button label="Add" variant="outlined" color="secondary"
+                            <Button
+                                label="Add"
+                                variant="outlined"
+                                color="secondary"
                                 onClick={this.handleSearchAdd}
                             >
                                 Add
                             </Button>
                         </Grid>
                         <Grid item  >
-                            <Button label="Search" variant="contained" color="primary"
+                            <Button
+                                label="Search"
+                                variant="contained"
+                                color="primary"
                                 onClick={this.handleSearch}
                             >
                                 Search
                             </Button>
                         </Grid>
                     </Grid>
-                </div >
-                <SearchCardList searchFields={this.state.searchFields} onRemove={this.handleSearchRemove} />
+                </div>
+                <br />
+                <SearchCardList
+                    searchFields={this.state.searchFields}
+                    onRemove={this.handleSearchRemove}
+                />
             </form >
         );
     }
